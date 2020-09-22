@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
 class FetchApi extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
       message: '',
+      isLoading: true,
     }
     this.fetchDog = this.fetchDog.bind(this);
     this.renderDog = this.renderDog.bind(this);
@@ -13,9 +14,19 @@ class FetchApi extends Component {
 
 
   fetchDog() {
-    fetch('https://dog.ceo/api/breeds/image/random')
-      .then(result => result.json())
-      .then(obj => this.setState({ message: obj.message }))
+
+    this.setState({
+      isLoading: true
+    }, () => {
+      const requestHeader = { headers: { Accept: "application/json" } }
+      fetch('https://dog.ceo/api/breeds/image/random', requestHeader)
+        .then(result => result.json())
+        .then(obj => this.setState({
+          message: obj.message,
+          isLoading: false
+        }))
+    })
+
   }
 
   componentDidMount() {
@@ -32,11 +43,11 @@ class FetchApi extends Component {
   }
 
   render() {
-    const loadingMessage = <span>Loading...</span>
+    const { isLoading } = this.state;
     return (
       <div>
         <h1>Doggos around the world</h1>
-        <div>{this.state.message ? this.renderDog() : loadingMessage}</div>
+        <div>{isLoading ? <p>Loading...</p> : this.renderDog()}</div>
       </div>
     )
   }

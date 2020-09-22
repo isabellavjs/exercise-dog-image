@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import FetchApi from './FetchApi';
+import FetchApi from './components/FetchApi';
 
 function App() {
   return (
