@@ -33,6 +33,19 @@ class FetchApi extends Component {
     this.fetchDog();
   }
 
+  shouldComponentUpdate() {
+    const isBreedTerrier = this.state.message.includes('terrier');
+    if (isBreedTerrier) alert('Terrier');
+
+    return true;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { message } = prevState;
+    localStorage.setItem("url", message)
+
+  }
+
   renderDog() {
     return (
       <div>
