@@ -21,10 +21,16 @@ class FetchApi extends Component {
       const requestHeader = { headers: { Accept: "application/json" } }
       fetch('https://dog.ceo/api/breeds/image/random', requestHeader)
         .then(result => result.json())
-        .then(obj => this.setState({
-          message: obj.message,
-          isLoading: false
-        }))
+        .then(obj => {
+
+
+
+          this.setState({
+            message: obj.message,
+            isLoading: false
+
+          })
+        })
     })
 
   }
